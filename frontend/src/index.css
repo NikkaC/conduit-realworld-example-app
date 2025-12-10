@@ -26,3 +26,7 @@ button:focus {
   justify-content: center;
   flex-direction: column;
 }
+
+.indigo {
+  color: #1e40af;
+}

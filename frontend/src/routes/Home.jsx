@@ -5,6 +5,7 @@ import FeedToggler from "../components/FeedToggler";
 import { useAuth } from "../context/AuthContext";
 import FeedProvider from "../context/FeedContext";
 import PopularTags from "./../components/PopularTags";
+import SearchBar from "../components/Search/SearchBar";
 
 function Home() {
   const { isAuth } = useAuth();
@@ -17,9 +18,12 @@ function Home() {
           <p>A place to share your knowledge.</p>
         </BannerContainer>
       )}
+      
       <ContainerRow type="page">
         <FeedProvider>
+          
           <div className="col-md-9">
+           <SearchBar />
             <FeedToggler />
             <Outlet />
           </div>

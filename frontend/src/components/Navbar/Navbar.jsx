@@ -11,7 +11,7 @@ function Navbar() {
     <nav className="navbar navbar-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          conduit
+          Conduit
         </Link>
 
         <SourceCodeLink left />
@@ -21,7 +21,7 @@ function Navbar() {
 
           {isAuth && (
             <>
-              <NavItem text="New Article" icon="ion-compose" url="/editor" />
+              <NavItem text="New Article" icon="ion-compose" url="/editor"/>
               <DropdownMenu />
             </>
           )}

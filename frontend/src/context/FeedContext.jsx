@@ -1,3 +1,4 @@
+// src/context/FeedContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 
@@ -9,23 +10,44 @@ export function useFeedContext() {
 
 function FeedProvider({ children }) {
   const { isAuth } = useAuth();
+
   const [{ tabName, tagName }, setTab] = useState({
     tabName: isAuth ? "feed" : "global",
     tagName: "",
   });
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     setTab((tab) => ({ ...tab, tabName: isAuth ? "feed" : "global" }));
   }, [isAuth]);
 
-  const changeTab = async (e, tabName) => {
-    const tagName = e.target.innerText.trim();
+  const changeTab = (e, newTabName) => {
+    const clickedTag = e?.target?.innerText?.trim() || "";
 
-    setTab({ tabName, tagName });
+    setTab({
+      tabName: newTabName,
+      tagName: newTabName === "tag" ? clickedTag : "",
+    });
+
+    setSearchQuery(""); // clear search when changing tab
+  };
+
+  const setSearch = (query) => {
+    setSearchQuery(query);
+    // ✅ we do NOT touch tabName here → useArticleList + getArticles stay unchanged
   };
 
   return (
-    <FeedContext.Provider value={{ changeTab, tabName, tagName }}>
+    <FeedContext.Provider
+      value={{
+        changeTab,
+        tabName,
+        tagName,
+        searchQuery,
+        setSearch,
+      }}
+    >
       {children}
     </FeedContext.Provider>
   );
